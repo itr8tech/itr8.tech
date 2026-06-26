@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MovieThrow — Throw any movie to your Apple TV</title>
+<meta name="description" content="A native macOS app that streams local video to Apple TV over AirPlay. Drop a file — MovieThrow figures out the codec, remuxes or transcodes on the fly, and plays while it works. Subtitles included.">
+
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="MovieThrow — Throw any movie to your Apple TV">
+<meta property="og:description" content="Drop a file, AirPlay it to your Apple TV. Codec-aware, hardware-accelerated, subtitles and all.">
+<meta property="og:image" content="icon.png">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" type="image/png" href="icon-256.png">
+<style>
+  :root {
+    --blue: #3b82f6;
+    --violet: #8b5cf6;
+    --bg: #0a0a12;
+    --bg-soft: #12121d;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.09);
+    --text: #ecedf3;
+    --muted: #9b9caf;
+    --grad: linear-gradient(135deg, var(--blue), var(--violet));
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---- Hero ---- */
+  header { position: relative; padding: 84px 0 64px; text-align: center; overflow: hidden; }
+  header::before {
+    content: ""; position: absolute; top: -30%; left: 50%; transform: translateX(-50%);
+    width: 760px; height: 760px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,90,242,0.30), transparent 62%);
+    filter: blur(20px); z-index: 0; pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .app-icon {
+    width: 132px; height: 132px; border-radius: 29px;
+    box-shadow: 0 24px 60px -12px rgba(99,73,228,0.55);
+    margin-bottom: 26px;
+  }
+  h1 { font-size: clamp(2.6rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+  .tagline {
+    font-size: clamp(1.15rem, 2.6vw, 1.6rem); color: var(--muted);
+    max-width: 600px; margin: 18px auto 0; font-weight: 400;
+  }
+  .gradient-text {
+    background: var(--grad); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ---- Buttons ---- */
+  .cta-row { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 14px 28px; border-radius: 13px; font-size: 1.05rem; font-weight: 600;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn-primary { background: var(--grad); color: #fff; box-shadow: 0 10px 30px -8px rgba(99,73,228,0.6); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 38px -8px rgba(99,73,228,0.75); }
+  .btn-ghost { background: var(--card); border: 1px solid var(--border); color: var(--text); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+  .req { margin-top: 18px; font-size: 0.92rem; color: var(--muted); }
+  .req b { color: var(--text); font-weight: 600; }
+
+  /* ---- App window mock ---- */
+  .mock {
+    margin: 60px auto 0; max-width: 560px;
+    background: var(--bg-soft); border: 1px solid var(--border); border-radius: 16px;
+    box-shadow: 0 40px 90px -30px rgba(0,0,0,0.8); overflow: hidden;
+  }
+  .mock-bar { display: flex; gap: 8px; padding: 13px 16px; border-bottom: 1px solid var(--border); }
+  .mock-bar span { width: 12px; height: 12px; border-radius: 50%; background: #4a4a57; }
+  .mock-bar span:nth-child(1) { background: #ff5f57; }
+  .mock-bar span:nth-child(2) { background: #febc2e; }
+  .mock-bar span:nth-child(3) { background: #28c840; }
+  .mock-body { padding: 30px 26px 26px; }
+  .dropzone {
+    border: 2px dashed var(--border); border-radius: 16px; padding: 34px 20px; text-align: center;
+    background: rgba(124,90,242,0.05);
+  }
+  .dropzone .film { font-size: 2.4rem; }
+  .dropzone p { color: var(--muted); margin-top: 8px; font-size: 0.95rem; }
+  .mock-controls { display: flex; align-items: center; gap: 12px; margin-top: 22px; }
+  .play-dot {
+    width: 34px; height: 34px; border-radius: 50%; background: var(--grad);
+    display: grid; place-items: center; flex-shrink: 0;
+  }
+  .play-dot::after { content: ""; border-style: solid; border-width: 6px 0 6px 10px; border-color: transparent transparent transparent #fff; margin-left: 2px; }
+  .scrub { flex: 1; height: 5px; border-radius: 3px; background: rgba(255,255,255,0.12); position: relative; }
+  .scrub::before { content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 38%; border-radius: 3px; background: var(--grad); }
+  .airplay-pill {
+    margin-top: 16px; display: inline-flex; align-items: center; gap: 7px;
+    font-size: 0.82rem; color: var(--muted); background: var(--card);
+    border: 1px solid var(--border); padding: 5px 12px; border-radius: 20px;
+  }
+  .airplay-pill svg { width: 14px; height: 14px; }
+
+  /* ---- Sections ---- */
+  section { padding: 72px 0; }
+  .section-head { text-align: center; max-width: 620px; margin: 0 auto 50px; }
+  .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; }
+  .section-head p { color: var(--muted); margin-top: 12px; font-size: 1.08rem; }
+
+  .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+  .feature {
+    background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 26px;
+    transition: transform .18s ease, border-color .18s ease;
+  }
+  .feature:hover { transform: translateY(-4px); border-color: rgba(124,90,242,0.5); }
+  .feature .ic {
+    width: 44px; height: 44px; border-radius: 11px; background: var(--grad);
+    display: grid; place-items: center; margin-bottom: 16px;
+  }
+  .feature .ic svg { width: 23px; height: 23px; stroke: #fff; fill: none; stroke-width: 2; }
+  .feature h3 { font-size: 1.18rem; font-weight: 700; margin-bottom: 7px; }
+  .feature p { color: var(--muted); font-size: 0.98rem; }
+
+  /* ---- Steps ---- */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 26px; }
+  .step { text-align: center; }
+  .step .num {
+    width: 52px; height: 52px; margin: 0 auto 16px; border-radius: 50%;
+    display: grid; place-items: center; font-weight: 800; font-size: 1.3rem;
+    background: var(--card); border: 1px solid var(--border); color: var(--violet);
+  }
+  .step h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+  .step p { color: var(--muted); font-size: 0.97rem; }
+
+  /* ---- Download band ---- */
+  .download {
+    text-align: center; background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 22px; padding: 56px 30px; position: relative; overflow: hidden;
+  }
+  .download::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(124,90,242,0.18), transparent 60%);
+  }
+  .download > * { position: relative; }
+  .download h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 800; letter-spacing: -0.02em; }
+  .download p { color: var(--muted); margin: 12px 0 28px; }
+
+  /* ---- Footer ---- */
+  footer { padding: 50px 0 60px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.88rem; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 28px; justify-content: space-between; align-items: center; }
+  footer a { color: var(--muted); border-bottom: 1px solid transparent; }
+  footer a:hover { color: var(--text); border-color: var(--border); }
+  .legal { max-width: 620px; line-height: 1.5; }
+
+  @media (max-width: 600px) {
+    header { padding: 56px 0 40px; }
+    .mock-body { padding: 22px 18px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hero-inner">
+    <img src="icon.png" alt="MovieThrow app icon" class="app-icon" width="132" height="132">
+    <h1>Throw any movie to your <span class="gradient-text">Apple&nbsp;TV</span></h1>
+    <p class="tagline">Drop a video file. MovieThrow figures out the codec, prepares it on the fly, and AirPlays it to your TV — subtitles and all.</p>
+
+    <div class="cta-row">
+      <!-- Swap href for your hosted DMG (e.g. a GitHub Releases link) -->
+      <a class="btn btn-primary" href="MovieThrow.dmg" download>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+        Download for macOS
+      </a>
+      <a class="btn btn-ghost" href="#how">See how it works</a>
+    </div>
+    <p class="req"><b>macOS 14</b> Sonoma or later · <b>Apple silicon</b> · Free</p>
+
+    <!-- App window mock -->
+    <div class="mock">
+      <div class="mock-bar"><span></span><span></span><span></span></div>
+      <div class="mock-body">
+        <div class="dropzone">
+          <div class="film">🎬</div>
+          <strong>Drop a movie file here</strong>
+          <p>MP4 · MKV · MOV · AVI · WebM · M2TS · and more</p>
+        </div>
+        <div class="mock-controls">
+          <div class="play-dot"></div>
+          <div class="scrub"></div>
+        </div>
+        <div class="airplay-pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H4a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2h-1"/><path d="M12 15l5 6H7l5-6z" fill="currentColor"/></svg>
+          Streaming to: Living Room
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2>It just plays</h2>
+      <p>No fiddling with formats. MovieThrow inspects every file by codec — not by extension — and does the least work needed to get it onto your TV.</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M9 3v18M15 3v18M3 9h18M3 15h18" stroke-linecap="round"/></svg></div>
+        <h3>Codec-aware</h3>
+        <p>Already Apple-TV-friendly? It plays directly. Wrong container but fine codecs? It remuxes in seconds — no quality loss, no waiting.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke-linejoin="round"/></svg></div>
+        <h3>Hardware transcoding</h3>
+        <p>When a real conversion is needed, it uses Apple silicon's VideoToolbox encoder — fast and cool, not a maxed-out CPU.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z" stroke-linejoin="round"/></svg></div>
+        <h3>Plays while it works</h3>
+        <p>A live HLS stream means playback starts after the first second or two — you don't wait for the whole file to finish preparing.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 5h18v14H3zM7 15h6M7 11h10" stroke-linecap="round"/></svg></div>
+        <h3>Subtitles, sorted</h3>
+        <p>Embedded tracks, sidecar SRT/VTT/ASS/SSA, even image-based Blu-ray (PGS) subs — OCR'd to selectable text. Soft, never burned in.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M5 17H4a2 2 0 01-2-2V6a2 2 0 012-2h16a2 2 0 012 2v9a2 2 0 01-2 2h-1M12 14l5 6H7l5-6z" stroke-linejoin="round"/></svg></div>
+        <h3>Native AirPlay 2</h3>
+        <p>Picks your Apple TV with the standard AirPlay control and streams over your LAN — the TV does the decoding, your Mac just feeds it.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Drag, drop, done</h3>
+        <p>One window. Drop a file or press ⌘O. In-app play/pause, scrub, and a live "streaming to" indicator. That's the whole app.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Three steps to your TV</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Drop a file</h3>
+        <p>Any common video — MP4, MKV, MOV, AVI, WebM, and more. Drag it in or open it with ⌘O.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>It prepares</h3>
+        <p>MovieThrow probes the codecs and direct-plays, remuxes, or hardware-transcodes — whatever's fastest.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Pick your Apple TV</h3>
+        <p>Hit AirPlay, choose your device, and it streams over your network. Subtitles toggle right on the TV.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="download">
+      <h2>Get MovieThrow</h2>
+      <p>Free. Notarized by Apple. macOS 14 Sonoma or later, Apple&nbsp;silicon.</p>
+      <a class="btn btn-primary" href="MovieThrow.dmg" download>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+        Download the DMG
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="legal">
+      <p>MovieThrow uses <a href="https://ffmpeg.org" target="_blank" rel="noopener">FFmpeg</a> under the GPLv3 — corresponding source is offered with the app. Not affiliated with Apple Inc.; AirPlay and Apple&nbsp;TV are trademarks of Apple Inc.</p>
+    </div>
+    <div>© MovieThrow</div>
+  </div>
+</footer>
+
+</body>
+</html>
