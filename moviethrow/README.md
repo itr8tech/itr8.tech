@@ -8,11 +8,11 @@ open index.html
 ```
 
 ## The download link
-The "Download" buttons point at **`MovieThrow.dmg`** (relative). Pick one:
-- **Host the DMG alongside the page** — copy `build/release/MovieThrow.dmg` into this folder when you
+The "Download" buttons point at the versioned release asset. Pick one:
+- **Host the DMG alongside the page** — copy `build/release/MovieThrow-X.Y.dmg` into this folder when you
   deploy. **Don't commit it to git** (it's ~57 MB; it's already covered by the repo `.gitignore`).
-- **Or link to a release** — replace `href="MovieThrow.dmg"` (two spots in `index.html`) with your
-  GitHub Releases URL, e.g. `https://github.com/<you>/<repo>/releases/latest/download/MovieThrow.dmg`.
+- **Or link to a release** — use the matching GitHub Releases URL in both spots in `index.html`,
+  e.g. `https://github.com/<you>/<repo>/releases/latest/download/MovieThrow-X.Y.dmg`.
 
 ## Deploy
 - **Netlify / Cloudflare Pages / Vercel** — point the project at this `website/` folder (or drag it
