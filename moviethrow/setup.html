@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>MovieThrow Setup Guides</title>
+  <meta name="description" content="Step-by-step setup instructions for TMDb artwork and OpenSubtitles in MovieThrow.">
+  <link rel="icon" type="image/png" href="icon-256.png">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg:#f7f7fb; --surface:rgba(255,255,255,.82); --surface-solid:#fff; --text:#171923;
+      --muted:#606477; --border:rgba(31,35,55,.11); --blue:#168df0; --purple:#7557e8;
+      --shadow:0 24px 65px rgba(38,42,65,.12); --glow:rgba(76,102,241,.18);
+      --gradient:linear-gradient(135deg,var(--blue),var(--purple));
+    }
+    @media (prefers-color-scheme:dark) {
+      :root {
+        --bg:#090a11; --surface:rgba(24,26,38,.82); --surface-solid:#151722; --text:#f3f4f8;
+        --muted:#a4a8b8; --border:rgba(255,255,255,.1); --shadow:0 26px 70px rgba(0,0,0,.4);
+        --glow:rgba(104,88,255,.25);
+      }
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; color:var(--text); background:radial-gradient(circle at 50% -10%,var(--glow),transparent 32rem),var(--bg);
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;
+      line-height:1.58; -webkit-font-smoothing:antialiased;
+    }
+    a { color:inherit; text-decoration:none; }
+    .wrap { width:min(920px,calc(100% - 40px)); margin-inline:auto; }
+    nav { display:flex; align-items:center; justify-content:space-between; padding:22px 0; }
+    .brand { display:flex; align-items:center; gap:11px; font-weight:760; }
+    .brand img { width:36px; height:36px; border-radius:9px; }
+    .nav-actions { display:flex; gap:22px; align-items:center; color:var(--muted); font-size:.92rem; }
+    .button { display:inline-block; padding:11px 18px; border-radius:12px; color:#fff; font-weight:700; background:var(--gradient); }
+    header { padding:70px 0 54px; text-align:center; }
+    .eyebrow { color:var(--blue); font-size:.78rem; font-weight:760; letter-spacing:.13em; text-transform:uppercase; }
+    h1 { margin:10px 0 18px; font-size:clamp(3rem,8vw,5.2rem); line-height:.98; letter-spacing:-.055em; }
+    .gradient { background:var(--gradient); background-clip:text; -webkit-background-clip:text; color:transparent; -webkit-text-fill-color:transparent; }
+    header p { max-width:650px; margin:0 auto; color:var(--muted); font-size:1.18rem; }
+    .jump { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:28px; }
+    .jump a { padding:10px 16px; border:1px solid var(--border); border-radius:11px; background:var(--surface); font-weight:680; }
+    main { display:grid; gap:24px; padding-bottom:88px; }
+    .guide { padding:36px; border:1px solid var(--border); border-radius:22px; background:var(--surface); box-shadow:var(--shadow); }
+    .guide-head { display:flex; align-items:center; gap:16px; margin-bottom:24px; }
+    .guide-icon { width:52px; height:52px; display:grid; place-items:center; flex:0 0 auto; border-radius:14px; color:#fff; background:var(--gradient); font-weight:850; }
+    h2 { margin:0; font-size:clamp(1.8rem,4vw,2.45rem); letter-spacing:-.035em; line-height:1.05; }
+    .summary { margin:8px 0 0; color:var(--muted); }
+    ol { margin:0; padding:0; list-style:none; counter-reset:steps; display:grid; gap:18px; }
+    li { position:relative; padding-left:48px; counter-increment:steps; }
+    li::before {
+      content:counter(steps); position:absolute; left:0; top:0; width:31px; height:31px; display:grid; place-items:center;
+      border-radius:50%; color:#fff; background:var(--gradient); font-size:.82rem; font-weight:800;
+    }
+    li strong { display:block; margin-bottom:3px; }
+    li p { margin:0; color:var(--muted); }
+    .inline-link { color:var(--blue); font-weight:680; text-decoration:underline; text-underline-offset:3px; }
+    .callout { margin-top:26px; padding:18px 20px; border:1px solid var(--border); border-radius:14px; background:var(--surface-solid); }
+    .callout strong { display:block; margin-bottom:4px; }
+    .callout p { margin:0; color:var(--muted); }
+    code { padding:2px 6px; border-radius:6px; background:var(--surface-solid); font-family:ui-monospace,SFMono-Regular,monospace; font-size:.9em; }
+    footer { border-top:1px solid var(--border); padding:30px 0 48px; color:var(--muted); font-size:.88rem; }
+    footer a { text-decoration:underline; text-underline-offset:3px; }
+    @media (max-width:620px) {
+      .wrap { width:min(100% - 28px,920px); }
+      .nav-actions > a:not(.button) { display:none; }
+      header { padding-top:48px; }
+      .guide { padding:27px 23px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="wrap" aria-label="Primary navigation">
+    <a class="brand" href="./"><img src="icon-256.png" alt="">MovieThrow</a>
+    <div class="nav-actions"><a href="./">Overview</a><a href="changelog.html">Changelog</a><a class="button" href="https://github.com/itr8tech/itr8.tech/releases/latest/download/MovieThrow-1.6.dmg">Download</a></div>
+  </nav>
+
+  <header class="wrap">
+    <div class="eyebrow">Optional online services</div>
+    <h1>MovieThrow<br><span class="gradient">Setup guides.</span></h1>
+    <p>MovieThrow works without either service. Add your own credentials only if you want automatic title artwork and details or downloadable subtitles.</p>
+    <div class="jump"><a href="#tmdb">Set up TMDb</a><a href="#opensubtitles">Set up OpenSubtitles</a></div>
+  </header>
+
+  <main class="wrap">
+    <section class="guide" id="tmdb">
+      <div class="guide-head"><div class="guide-icon">TM</div><div><h2>Add a TMDb token</h2><p class="summary">For automatic posters, title details, cast, and crew.</p></div></div>
+      <ol>
+        <li><strong>Create or sign in to a TMDb account.</strong><p>Visit <a class="inline-link" href="https://www.themoviedb.org/signup" target="_blank" rel="noopener">themoviedb.org</a> and complete any email verification TMDb requests.</p></li>
+        <li><strong>Open TMDb’s API settings.</strong><p>Go to <a class="inline-link" href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener">Settings → API</a>. If TMDb asks you to request API access, follow its form and describe personal MovieThrow use.</p></li>
+        <li><strong>Copy the API Read Access Token.</strong><p>Copy the long token labeled <em>API Read Access Token</em>. Do not copy the shorter API Key; MovieThrow expects the Bearer token.</p></li>
+        <li><strong>Open MovieThrow Settings.</strong><p>Choose <strong>MovieThrow → Settings…</strong> from the menu bar, or press <code>⌘,</code>.</p></li>
+        <li><strong>Save it under Official poster artwork.</strong><p>Paste the token into <strong>TMDb API Read Access Token</strong>, then click <strong>Save poster token</strong>.</p></li>
+        <li><strong>Fetch artwork.</strong><p>Return to the Library and click <strong>Posters</strong>. MovieThrow will identify high-confidence matches and fill title details as you browse.</p></li>
+      </ol>
+      <div class="callout"><strong>Your token stays in your Mac login keychain.</strong><p>MovieThrow uses it for title identification, details, and missing official artwork. Existing local artwork and your manual metadata overrides remain authoritative.</p></div>
+    </section>
+
+    <section class="guide" id="opensubtitles">
+      <div class="guide-head"><div class="guide-icon">CC</div><div><h2>Add an OpenSubtitles API key</h2><p class="summary">For automatic subtitle search and selectable alternatives.</p></div></div>
+      <ol>
+        <li><strong>Create or sign in to an OpenSubtitles.com account.</strong><p>Use <a class="inline-link" href="https://www.opensubtitles.com/en/users/sign_up" target="_blank" rel="noopener">OpenSubtitles.com</a>. This is the <strong>.com</strong> service, not the older .org site.</p></li>
+        <li><strong>Create an API consumer.</strong><p>Open your <a class="inline-link" href="https://www.opensubtitles.com/en/consumers" target="_blank" rel="noopener">API consumers page</a>, choose <strong>New Consumer</strong>, and complete the short application form.</p></li>
+        <li><strong>Copy its API key.</strong><p>Once the consumer is created, copy the generated API key.</p></li>
+        <li><strong>Open MovieThrow Settings.</strong><p>Choose <strong>MovieThrow → Settings…</strong> from the menu bar, or press <code>⌘,</code>.</p></li>
+        <li><strong>Save the OpenSubtitles credential.</strong><p>Paste it into the <strong>API key</strong> field under <strong>OpenSubtitles</strong>, then click <strong>Save credentials</strong>. The Bearer token field is optional and may be left empty.</p></li>
+        <li><strong>Choose your subtitle preferences.</strong><p>Turn on <strong>Find missing subtitles automatically</strong> and enter a two-letter preferred language code such as <code>en</code>, <code>fr</code>, or <code>es</code>.</p></li>
+      </ol>
+      <div class="callout"><strong>Your media is not uploaded.</strong><p>MovieThrow searches using a lightweight file hash, stores credentials in your Mac login keychain, and downloads a subtitle only when a match is selected. OpenSubtitles account limits still apply.</p></div>
+    </section>
+  </main>
+
+  <footer><div class="wrap">MovieThrow · <a href="./">Overview</a> · <a href="changelog.html">Changelog</a> · <a href="https://developer.themoviedb.org/docs/authentication-application">TMDb authentication docs</a> · <a href="https://opensubtitles.stoplight.io/docs/opensubtitles-api/e3750fd63a100-getting-started">OpenSubtitles API docs</a></div></footer>
+</body>
+</html>
