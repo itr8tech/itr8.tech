@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>MovieThrow Changelog</title>
+  <meta name="description" content="What is new, improved, and fixed in every version of MovieThrow.">
+  <link rel="icon" type="image/png" href="icon-256.png">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f7fb; --surface: rgba(255,255,255,.82); --text: #171923;
+      --muted: #606477; --border: rgba(31,35,55,.11); --blue: #168df0;
+      --purple: #7557e8; --shadow: 0 24px 65px rgba(38,42,65,.12);
+      --glow: rgba(76,102,241,.18); --gradient: linear-gradient(135deg,var(--blue),var(--purple));
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #090a11; --surface: rgba(24,26,38,.82); --text: #f3f4f8;
+        --muted: #a4a8b8; --border: rgba(255,255,255,.1);
+        --shadow: 0 26px 70px rgba(0,0,0,.4); --glow: rgba(104,88,255,.25);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; color: var(--text); background: radial-gradient(circle at 50% -10%,var(--glow),transparent 32rem),var(--bg);
+      font-family: -apple-system,BlinkMacSystemFont,"SF Pro Display",system-ui,sans-serif;
+      line-height: 1.55; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(920px,calc(100% - 40px)); margin-inline: auto; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 760; }
+    .brand img { width: 36px; height: 36px; border-radius: 9px; }
+    .nav-actions { display: flex; gap: 22px; align-items: center; color: var(--muted); font-size: .92rem; }
+    .button { padding: 11px 18px; border-radius: 12px; color: white; font-weight: 700; background: var(--gradient); }
+    header { padding: 72px 0 62px; text-align: center; }
+    .eyebrow { color: var(--blue); font-size: .78rem; font-weight: 760; letter-spacing: .13em; text-transform: uppercase; }
+    h1 { margin: 10px 0 18px; font-size: clamp(3rem,8vw,5.2rem); line-height: .98; letter-spacing: -.055em; }
+    .gradient { background: var(--gradient); background-clip: text; -webkit-background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+    header p { max-width: 630px; margin: 0 auto; color: var(--muted); font-size: 1.18rem; }
+    main { display: grid; gap: 18px; padding-bottom: 88px; }
+    .release { padding: 31px 34px; border: 1px solid var(--border); border-radius: 20px; background: var(--surface); box-shadow: var(--shadow); }
+    .release-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 18px; }
+    h2 { margin: 0; font-size: 1.75rem; letter-spacing: -.025em; }
+    time { color: var(--muted); font-size: .9rem; white-space: nowrap; }
+    .latest { display: inline-block; margin-left: 9px; padding: 3px 8px; border-radius: 99px; color: white; background: var(--gradient); font-size: .68rem; font-weight: 800; letter-spacing: .08em; vertical-align: middle; }
+    ul { margin: 0; padding-left: 1.25rem; }
+    li + li { margin-top: 10px; }
+    li::marker { color: var(--blue); }
+    .release-link { display: inline-block; margin-top: 21px; color: var(--blue); font-weight: 680; }
+    footer { border-top: 1px solid var(--border); padding: 30px 0 48px; color: var(--muted); font-size: .88rem; }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 28px,920px); }
+      .nav-actions > a:first-child { display: none; }
+      header { padding-top: 48px; }
+      .release { padding: 25px 23px; }
+      .release-head { display: block; }
+      time { display: block; margin-top: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="wrap" aria-label="Primary navigation">
+    <a class="brand" href="./"><img src="icon-256.png" alt="">MovieThrow</a>
+    <div class="nav-actions"><a href="./">Overview</a><a class="button" href="https://github.com/itr8tech/itr8.tech/releases/latest/download/MovieThrow-1.6.dmg">Download</a></div>
+  </nav>
+
+  <header class="wrap">
+    <div class="eyebrow">Release history</div>
+    <h1>MovieThrow<br><span class="gradient">Changelog.</span></h1>
+    <p>A user-facing record of new features, improvements, and fixes in every public version.</p>
+  </header>
+
+  <main class="wrap">
+    <article class="release">
+      <div class="release-head"><h2>Version 1.6 <span class="latest">LATEST</span></h2><time datetime="2026-08-19">August 19, 2026</time></div>
+      <ul>
+        <li>Newly queued movies and episodes now reliably begin at the start instead of jumping minutes ahead.</li>
+        <li>Fresh streams build a short cushion before playback for smoother, more resilient delivery.</li>
+        <li>An empty Player now makes the Library the primary choice while retaining access to files elsewhere.</li>
+        <li>Expanded local library, title details, cast and crew, artwork, extras, and metadata-management tools.</li>
+      </ul>
+      <a class="release-link" href="https://github.com/itr8tech/itr8.tech/releases/tag/moviethrow-v1.6">Release and download →</a>
+    </article>
+
+    <article class="release">
+      <div class="release-head"><h2>Version 1.5.1</h2><time datetime="2026-08-19">August 19, 2026</time></div>
+      <ul>
+        <li>Fixed a startup deadlock that could freeze or close MovieThrow when opening a movie or episode.</li>
+        <li>Hardened playback completion, stall, and failure handling for safer interface updates.</li>
+      </ul>
+      <a class="release-link" href="https://github.com/itr8tech/itr8.tech/releases/tag/moviethrow-v1.5.1">Release and download →</a>
+    </article>
+
+    <article class="release">
+      <div class="release-head"><h2>Version 1.5</h2><time datetime="2026-08-15">August 15, 2026</time></div>
+      <ul>
+        <li>Added rich movie and episode details with runtime, genres, cast, characters, crew, and linked headshots.</li>
+        <li>Movies and shows now open a detailed preview before playing or joining Up Next.</li>
+        <li>Added fully local metadata and poster editing that works independently of TMDb.</li>
+        <li>Added classification correction and grouping for trailers, featurettes, deleted scenes, and other extras.</li>
+        <li>Improved metadata matching, sleep/wake subtitle recovery, and writable library management.</li>
+      </ul>
+      <a class="release-link" href="https://github.com/itr8tech/itr8.tech/releases/tag/moviethrow-v1.5">Release and download →</a>
+    </article>
+
+    <article class="release">
+      <div class="release-head"><h2>Version 1.4</h2><time datetime="2026-07-30">July 30, 2026</time></div>
+      <ul>
+        <li>Introduced the local media library with movies, shows, seasons, episodes, and whole-season queueing.</li>
+        <li>Added automatic filesystem updates, search, duplicate review, safe renaming, Finder access, and Trash support.</li>
+        <li>Added local artwork and optional high-confidence TMDb poster matching.</li>
+        <li>Added OpenSubtitles alternatives and fallback subtitle generation.</li>
+        <li>Improved caption reliability, HDR/4K AirPlay routing, seeking, and playback compatibility.</li>
+      </ul>
+      <a class="release-link" href="https://github.com/itr8tech/itr8.tech/releases/tag/moviethrow-v1.4">Release and download →</a>
+    </article>
+
+    <article class="release">
+      <div class="release-head"><h2>Version 1.3</h2><time datetime="2026-07-29">July 29, 2026</time></div>
+      <ul>
+        <li>Added automatic captions from embedded tracks, local files, OpenSubtitles, or fallback generation.</li>
+        <li>Added persistent, plain-language caption status and broader text and bitmap subtitle support.</li>
+        <li>Improved AirPlay startup, seeking, buffering, timelines, and recovery.</li>
+        <li>Added queue file dropping, ten-second skip controls, cleaner titles, and more useful technical details.</li>
+      </ul>
+      <a class="release-link" href="https://github.com/itr8tech/itr8.tech/releases/tag/moviethrow-v1.3">Release and download →</a>
+    </article>
+
+    <article class="release">
+      <div class="release-head"><h2>Version 1.2</h2><time datetime="2026-06-26">June 26, 2026</time></div>
+      <ul>
+        <li>Added selectable multi-track subtitles, including language switching over AirPlay.</li>
+        <li>Improved Apple TV handoff so playback waits for the selected television instead of briefly starting on the Mac.</li>
+        <li>Polished scrub previews, the AirPlay chooser, connected-device naming, and filename display.</li>
+      </ul>
+      <a class="release-link" href="https://github.com/itr8tech/itr8.tech/releases/tag/moviethrow-v1.2">Release and download →</a>
+    </article>
+
+    <article class="release">
+      <div class="release-head"><h2>Version 1.1</h2><time datetime="2026-06-26">June 26, 2026</time></div>
+      <ul>
+        <li>Added timeline scrub-preview thumbnails.</li>
+        <li>Added live now-playing artwork that follows the current scene.</li>
+        <li>Preview imagery is generated in the background and cached locally for reuse.</li>
+      </ul>
+      <a class="release-link" href="https://github.com/itr8tech/itr8.tech/releases/tag/moviethrow-v1.1">Release and download →</a>
+    </article>
+
+    <article class="release">
+      <div class="release-head"><h2>Version 1.0</h2><time datetime="2026-06-25">June 25, 2026</time></div>
+      <ul><li>First public release of MovieThrow for macOS and Apple TV playback.</li></ul>
+      <a class="release-link" href="https://github.com/itr8tech/itr8.tech/releases/tag/moviethrow-v1.0">Release and download →</a>
+    </article>
+  </main>
+
+  <footer><div class="wrap">MovieThrow · <a href="./">Overview</a> · <a href="https://github.com/itr8tech/itr8.tech/releases">GitHub releases</a></div></footer>
+</body>
+</html>
