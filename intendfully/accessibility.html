@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Intendfully Accessibility</title>
+  <meta name="description" content="Accessibility features in Intendfully, what we have tested, and how to report a barrier or ask for help.">
+  <link rel="icon" type="image/png" href="icon-256.png">
+  <style>
+    :root { color-scheme: light dark; --bg:#faf8f1; --text:#2a3029; --muted:#5f665e; --link:#8a6d00; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#141614; --text:#eef0ea; --muted:#a3a99f; --link:#ffd700; } }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font:17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .page { max-width:720px; margin:0 auto; padding:32px 20px 64px; }
+    header.site { display:flex; align-items:center; gap:14px; margin-bottom:28px; }
+    header.site img { width:56px; height:56px; border-radius:13px; }
+    header.site a.name { font-weight:700; font-size:1.25rem; color:var(--text); text-decoration:none; }
+    nav { margin-left:auto; display:flex; flex-wrap:wrap; gap:16px; font-size:.95rem; }
+    a { color:var(--link); overflow-wrap:anywhere; }
+    a:focus-visible { outline:3px solid var(--link); outline-offset:4px; }
+    .skip-link { position:absolute; left:20px; top:0; padding:8px 12px; background:var(--bg); transform:translateY(-150%); }
+    .skip-link:focus { transform:translateY(0); }
+    h1 { font-size:2rem; line-height:1.2; margin:.2em 0 .4em; }
+    h2 { font-size:1.2rem; margin:1.8em 0 .4em; }
+    li + li { margin-top:.6em; }
+    .muted { color:var(--muted); font-size:.95rem; }
+    footer { margin-top:48px; color:var(--muted); font-size:.9rem; }
+    @media (max-width:600px) { header.site { flex-wrap:wrap; } nav { flex-basis:100%; margin-left:0; } }
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="page">
+  <header class="site">
+    <a href="./"><img src="icon-256.png" alt="Intendfully home"></a>
+    <a class="name" href="./">Intendfully</a>
+    <nav aria-label="Intendfully"><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav>
+  </header>
+
+  <main id="content" tabindex="-1">
+    <h1>Intendfully Accessibility</h1>
+    <p class="muted">Updated October 28, 2026 &middot; App version 1.0</p>
+    <p>We want Intendfully to be usable in the way that works for you. This statement describes the accessibility features built into the current release, the checks completed so far, and the testing still outstanding.</p>
+
+    <h2>On iPhone and iPad</h2>
+    <ul>
+      <li><strong>Larger text.</strong> Text follows your device&rsquo;s text-size setting. At accessibility sizes, the calendar changes to a list of days, summaries stack, and the year view uses one column.</li>
+      <li><strong>Colour and appearance.</strong> Day states use distinct symbols as well as colour. The app includes light and dark appearances and responds to Increase Contrast, Differentiate Without Color and Reduce Transparency.</li>
+      <li><strong>Reduced motion.</strong> With Reduce Motion enabled, the app removes movement from its transitions and shows a still splash screen.</li>
+      <li><strong>VoiceOver features.</strong> Controls include spoken labels and state information. Calendar days offer actions to choose a status or clear it; month and year controls offer adjustable values. The year chart includes an audio graph.</li>
+      <li><strong>Voice and keyboard controls.</strong> Controls include names for Voice Control. Hardware-keyboard shortcuts include Command-N to add an intention and Command-Left Arrow or Command-Right Arrow to change calendar months. Siri shortcuts provide another way to log a day.</li>
+      <li><strong>Assistive Access.</strong> On iOS and iPadOS 26 or later, a simplified view provides three labelled choices for logging today. Add intentions in the full app first; setup, deletion and purchases are outside this simplified view.</li>
+    </ul>
+    <p>Use your device&rsquo;s Settings &rsaquo; Accessibility to choose accessibility options. Intendfully follows the relevant system settings without a separate accessibility switch in the app.</p>
+
+    <h2>On Apple Watch and Apple TV</h2>
+    <p>The Apple Watch app includes labelled intentions and status buttons, with spoken status information for complications. The Apple TV app includes labelled controls, direct actions for day states and a visible focus outline. Reduce Motion removes the Apple TV controls&rsquo; focus enlargement.</p>
+
+    <h2>Testing and current limitations</h2>
+    <p>Before the version 1.0 release, we ran Apple&rsquo;s automated accessibility audits on the main iPhone and iPad screens, including selected screens at the largest accessibility text size. The checks used English and covered labels, contrast, touch targets and text layout. We corrected an issue in the add and edit intention forms and reran those checks.</p>
+    <p>Automated audits have limitations and do not establish full compatibility with assistive technology. End-to-end testing on physical devices with VoiceOver, Voice Control, Switch Control and Full Keyboard Access is still outstanding, including the purchase and restore experience. Assistive Access, widgets, watch complications and Apple TV also need hands-on accessibility verification. We have not verified every language or device configuration.</p>
+
+    <h2>This website</h2>
+    <p>This statement uses structured headings, text links, visible keyboard focus and a layout that adapts to smaller screens and enlarged text. It follows your system&rsquo;s light or dark appearance. A full manual accessibility review of the website is still outstanding.</p>
+
+    <h2>Report a barrier or ask for help</h2>
+    <p>Email <a href="mailto:support@itr8.tech?subject=Intendfully%20accessibility">support@itr8.tech</a> if something is difficult to use or if you need this information in another format. Tell us what you were trying to do, your device and operating-system version, and any accessibility settings or assistive technology involved so we can investigate.</p>
+  </main>
+
+  <footer>&copy; 2026 Iterate Technologies Ltd. &middot; <a href="accessibility.html" aria-current="page">Accessibility</a> &middot; <a href="https://itr8.tech/">itr8.tech</a></footer>
+</div>
+</body>
+</html>
