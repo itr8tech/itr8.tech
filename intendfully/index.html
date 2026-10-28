@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
+  <meta name="apple-itunes-app" content="app-id=6822105876">
   <title>Intendfully: track what you meant to do</title>
   <meta name="description" content="Intendfully tracks your intentions and your follow-through on a calendar, with three states instead of done or not done.">
   <link rel="icon" type="image/png" href="icon-256.png">
@@ -25,6 +26,11 @@
     .card { background:var(--card); border:1px solid var(--border); border-radius:18px; padding:20px 22px; margin:16px 0; }
     .hero { background:var(--accent); color:var(--ink); border-radius:24px; padding:28px; margin:8px 0 24px; }
     .hero h1 { margin-top:0; } .hero p { color:var(--ink); }
+    .app-store-link { display:inline-flex; align-items:center; justify-content:center; min-height:48px; max-width:100%; padding:12px 20px; border-radius:12px; background:var(--ink); color:#fff; font-weight:700; line-height:1.3; text-align:center; text-decoration:none; }
+    .app-store-link:hover { text-decoration:underline; }
+    .app-store-link:focus-visible { outline:3px solid var(--ink); outline-offset:4px; }
+    .hero .availability { margin-bottom:0; font-size:.95rem; }
+    @media (max-width:480px) { header.site { flex-wrap:wrap; } nav { flex-basis:100%; margin-left:0; flex-wrap:wrap; } }
     footer { margin-top:48px; color:var(--muted); font-size:.9rem; }
   </style>
 </head>
@@ -39,6 +45,8 @@
   <section class="hero">
     <h1>Track what you meant to do, and what happened.</h1>
     <p>Intendfully is a calendar for your intentions. Tap a day to say whether you did as you intended, made a planned exception, or didn&rsquo;t follow through, then watch the patterns build across months and years.</p>
+    <a class="app-store-link" href="https://apps.apple.com/app/intendfully/id6822105876" aria-label="Download Intendfully on the App Store">Download on the App Store</a>
+    <p class="availability">Available for iPhone, iPad, Apple Watch and Apple TV.</p>
   </section>
   <div class="card">
     <h2 style="margin-top:0">Three ways to tell your day</h2>
@@ -53,7 +61,7 @@
     <ul>
       <li>A calendar for each intention, with monthly totals and a year-at-a-glance view</li>
       <li>Home Screen widgets and Siri shortcuts</li>
-      <li>Optional iCloud sync across your iPhone and iPad, in your own private iCloud</li>
+      <li>Sync across iPhone, iPad, Apple Watch and Apple TV through your own private iCloud</li>
       <li>No account, no ads, no tracking</li>
     </ul>
     <p class="muted">Free for one intention. A single one-time purchase unlocks unlimited intentions. No subscription.</p>
